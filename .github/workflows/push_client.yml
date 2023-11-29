@@ -1,31 +1,32 @@
-name: Build and Push Client Image
+name: Build and Push Client
 
 on:
   push:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
     steps:
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        name: Checkout
+        uses: actions/checkout@v3
       -
         name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      -
+        name: Build and Push
         uses: docker/build-push-action@v4
         with:
-          context: client
-          file: client/Dockerfile
+          context: ./client
+          file: ./client/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/multi-client:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/multi-react:latest
