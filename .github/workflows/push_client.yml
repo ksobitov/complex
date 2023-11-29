@@ -25,8 +25,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./client
-          file: Dockerfile
+          context: client
+          file: client/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/multi-client:latest
