@@ -28,4 +28,5 @@ jobs:
           context: complex/client 
           file: complex/client/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/multi-client:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/multi-client:latest
