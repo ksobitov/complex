@@ -22,8 +22,6 @@ jobs:
 
       -
         name: Build Client Image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/react-test -f ./client/Dockerfile.dev ./client
-
-      -
-        name: npm test
-        run: docker run -e CI=true ${{ secrets.DOCKERHUB_USERNAME }}/react-test:latest npm test
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/react-test -f ./client/Dockerfile.dev ./client
+          docker run -e CI=true ${{ secrets.DOCKERHUB_USERNAME }}/react-test:latest npm test
